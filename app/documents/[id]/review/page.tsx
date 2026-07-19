@@ -150,13 +150,32 @@ export default function ReviewDocumentPage() {
             )}
           </section>
 
-          <section className="grid gap-4" aria-label={tr("fieldsToReview")}>
+          <section className="grid gap-4" aria-labelledby="fields-to-review-title">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 id="fields-to-review-title" className="text-xl font-semibold text-[#172026]">
+                  {tr("fieldsToReview")}
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-[#52616b]">{tr("reviewIntro")}</p>
+              </div>
+              <StatusBadge status={documentRecord.status} />
+            </div>
+
+            {confirmations.length === 0 ? (
+              <EmptyState title={tr("fieldsToReview")}>
+                <p>{tr("noConfirmedFieldsBody")}</p>
+              </EmptyState>
+            ) : null}
+
             {confirmations.map((confirmation) => {
               const sampleField = sample?.fields.find((field) => field.id === confirmation.fieldId);
               const draft = draftValues[confirmation.id] ?? displayValue(confirmation.originalValue);
 
               return (
-                <article key={confirmation.id} className="field-card p-5 sm:p-6">
+                <article
+                  key={confirmation.id}
+                  className="grid rounded-lg border border-[#d8d0bf] bg-white p-5 shadow-sm sm:p-6"
+                >
                   <div className="grid gap-5 lg:grid-cols-[1fr_0.9fr]">
                     <div>
                       <div className="flex flex-wrap items-center gap-3">
