@@ -29,9 +29,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +41,28 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# organizer starter pack copies kept outside the app-owned import path
+/realdoor-hackathon-starter-pack/
+/rules/
+/evaluation/
+/governance/
+/synthetic_documents/
+/data/*.csv
+/data/*.xlsx
+/data/realdoor/data/
+/.cache/
+
+# local runtime data and generated artifacts
+*.zip
+*.sqlite
+*.sqlite3
+*.db
+tmp/
+temp/
+.tmp/
+
+# never commit real applicant uploads; bundled RealDoor synthetic PDFs live under public/realdoor/
+uploads/
+applicant-documents/
+real-applicant-documents/

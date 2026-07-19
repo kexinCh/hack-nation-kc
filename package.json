@@ -6,12 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "copy-safety": "node scripts/copy-safety.mjs",
+    "realdoor-tests": "node --experimental-strip-types --test scripts/realdoor-tests.mjs",
+    "eval:paystubs": "node --experimental-strip-types scripts/evaluate-paystub-extraction.mjs",
+    "eval:documents": "node --experimental-strip-types scripts/evaluate-paystub-extraction.mjs"
   },
   "dependencies": {
+    "@base-ui/react": "^1.6.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "idb": "^8.0.3",
+    "jszip": "^3.10.1",
+    "lucide-react": "^1.25.0",
     "next": "16.2.10",
+    "openai": "^6.48.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "shadcn": "^4.13.1",
+    "tailwind-merge": "^3.6.0",
+    "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -1,0 +1,93 @@
+{
+  "sourceFile": "data/realdoor/mtsp_2026_boston_cambridge_quincy.csv",
+  "rows": [
+    {
+      "fiscalYear": 2026,
+      "effectiveDate": "2026-05-01",
+      "hudArea": "Boston-Cambridge-Quincy, MA-NH HMFA",
+      "medianFamilyIncome": 164600,
+      "householdSize": 1,
+      "amiPercent": 60,
+      "thresholdAmount": 72000,
+      "coreChallengeThreshold": 72000,
+      "sourcePdfPage": 130
+    },
+    {
+      "fiscalYear": 2026,
+      "effectiveDate": "2026-05-01",
+      "hudArea": "Boston-Cambridge-Quincy, MA-NH HMFA",
+      "medianFamilyIncome": 164600,
+      "householdSize": 2,
+      "amiPercent": 60,
+      "thresholdAmount": 82320,
+      "coreChallengeThreshold": 82320,
+      "sourcePdfPage": 130
+    },
+    {
+      "fiscalYear": 2026,
+      "effectiveDate": "2026-05-01",
+      "hudArea": "Boston-Cambridge-Quincy, MA-NH HMFA",
+      "medianFamilyIncome": 164600,
+      "householdSize": 3,
+      "amiPercent": 60,
+      "thresholdAmount": 92580,
+      "coreChallengeThreshold": 92580,
+      "sourcePdfPage": 130
+    },
+    {
+      "fiscalYear": 2026,
+      "effectiveDate": "2026-05-01",
+      "hudArea": "Boston-Cambridge-Quincy, MA-NH HMFA",
+      "medianFamilyIncome": 164600,
+      "householdSize": 4,
+      "amiPercent": 60,
+      "thresholdAmount": 102840,
+      "coreChallengeThreshold": 102840,
+      "sourcePdfPage": 130
+    },
+    {
+      "fiscalYear": 2026,
+      "effectiveDate": "2026-05-01",
+      "hudArea": "Boston-Cambridge-Quincy, MA-NH HMFA",
+      "medianFamilyIncome": 164600,
+      "householdSize": 5,
+      "amiPercent": 60,
+      "thresholdAmount": 111120,
+      "coreChallengeThreshold": 111120,
+      "sourcePdfPage": 130
+    },
+    {
+      "fiscalYear": 2026,
+      "effectiveDate": "2026-05-01",
+      "hudArea": "Boston-Cambridge-Quincy, MA-NH HMFA",
+      "medianFamilyIncome": 164600,
+      "householdSize": 6,
+      "amiPercent": 60,
+      "thresholdAmount": 119340,
+      "coreChallengeThreshold": 119340,
+      "sourcePdfPage": 130
+    },
+    {
+      "fiscalYear": 2026,
+      "effectiveDate": "2026-05-01",
+      "hudArea": "Boston-Cambridge-Quincy, MA-NH HMFA",
+      "medianFamilyIncome": 164600,
+      "householdSize": 7,
+      "amiPercent": 60,
+      "thresholdAmount": 127560,
+      "coreChallengeThreshold": 127560,
+      "sourcePdfPage": 130
+    },
+    {
+      "fiscalYear": 2026,
+      "effectiveDate": "2026-05-01",
+      "hudArea": "Boston-Cambridge-Quincy, MA-NH HMFA",
+      "medianFamilyIncome": 164600,
+      "householdSize": 8,
+      "amiPercent": 60,
+      "thresholdAmount": 135780,
+      "coreChallengeThreshold": 135780,
+      "sourcePdfPage": 130
+    }
+  ]
+}

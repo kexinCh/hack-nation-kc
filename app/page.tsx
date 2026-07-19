@@ -1,65 +1,148 @@
-import Image from "next/image";
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Pencil, ShieldCheck, Trash2 } from "lucide-react";
+
+import { AppShell } from "@/components/app-shell";
+import { PageHeader } from "@/components/page-header";
+import { Button, buttonVariants } from "@/components/ui/button";
+import type { ApplicationSession, PreferredLanguage } from "@/lib/housing/types";
+import { languageOptions, useTranslations } from "@/lib/i18n";
+import { activateSession, deleteSession, listSessions } from "@/lib/session/session-store";
 
 export default function Home() {
+  const router = useRouter();
+  const { language, setLanguage, t, tr } = useTranslations();
+  const [sessions, setSessions] = useState<ApplicationSession[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [announcement, setAnnouncement] = useState("");
+
+  async function loadSessions() {
+    setLoading(true);
+    setSessions(await listSessions());
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      const nextSessions = await listSessions();
+      if (!cancelled) {
+        setSessions(nextSessions);
+        setLoading(false);
+      }
+    }
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  async function openSession(sessionId: string, destination: "/dashboard" | "/setup") {
+    await activateSession(sessionId);
+    router.push(destination);
+  }
+
+  async function removeSession(sessionId: string) {
+    await deleteSession(sessionId);
+    setAnnouncement(tr("applicationDeleted"));
+    await loadSessions();
+  }
+
+  function changeLanguage(nextLanguage: PreferredLanguage) {
+    setLanguage(nextLanguage);
+    setAnnouncement(tr("languageUpdated"));
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <AppShell announcement={announcement}>
+      <PageHeader eyebrow={tr("homeEyebrow")} title={tr("homeTitle")}>
+        <p>{tr("homeIntro")}</p>
+      </PageHeader>
+
+      <section className="grid gap-5 lg:grid-cols-[1fr_1fr]">
+        <div className="rounded-lg border border-[#d8d0bf] bg-[#fffdf7] p-6">
+          <div className="flex items-start gap-3">
+            <ShieldCheck aria-hidden="true" className="mt-1 size-6 text-[#2f855a]" />
+            <div className="w-full">
+              <h2 className="text-xl font-semibold text-[#172026]">{tr("whatToolDoes")}</h2>
+              <ul className="mt-4 space-y-3 text-base leading-7 text-[#334e68]">
+                <li>{tr("homePoint1")}</li>
+                <li>{tr("homePoint2")}</li>
+                <li>{tr("homePoint3")}</li>
+                <li>{tr("homePoint4")}</li>
+              </ul>
+              <div className="mt-6 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">
+                <div>
+                  <label htmlFor="home-language" className="block text-sm font-semibold text-[#172026]">
+                    {t.language}
+                  </label>
+                  <select
+                    id="home-language"
+                    value={language}
+                    onChange={(event) => changeLanguage(event.currentTarget.value as PreferredLanguage)}
+                    className="mt-2 h-11 w-full rounded-md border border-[#b8af9d] bg-white px-3 text-base outline-none focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40"
+                  >
+                    {languageOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <Link className={buttonVariants({ size: "lg" })} href="/setup?new=1">
+                  {t.startApplication}
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="rounded-lg border border-[#d8d0bf] bg-white p-6">
+          <h2 className="text-xl font-semibold text-[#172026]">{t.savedAttempts}</h2>
+          {loading ? (
+            <p className="mt-3 text-sm text-[#52616b]">{tr("loadingSaved")}</p>
+          ) : sessions.length === 0 ? (
+            <p className="mt-3 text-sm leading-6 text-[#52616b]">{t.noSavedAttempts}</p>
+          ) : (
+            <div className="mt-4 grid gap-3">
+              {sessions.map((session) => (
+                <article key={session.id} className="rounded-md border border-[#e5ddcf] bg-[#fffdf7] p-4">
+                  <h3 className="font-semibold text-[#172026]">
+                    {tr("applicationShort", { id: session.id.slice(0, 8) })}
+                  </h3>
+                  <p className="mt-1 text-sm text-[#52616b]">
+                    {tr("updatedHouseholdDocuments", {
+                      date: new Date(session.updatedAt).toLocaleString(),
+                      size: session.setup.householdSize,
+                      count: session.documents.length,
+                    })}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Button type="button" onClick={() => void openSession(session.id, "/dashboard")}>
+                      {t.resume}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => void openSession(session.id, "/setup")}
+                    >
+                      <Pencil aria-hidden="true" />
+                      {t.edit}
+                    </Button>
+                    <Button type="button" variant="destructive" onClick={() => void removeSession(session.id)}>
+                      <Trash2 aria-hidden="true" />
+                      {t.delete}
+                    </Button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
-      </main>
-    </div>
+      </section>
+    </AppShell>
   );
 }
