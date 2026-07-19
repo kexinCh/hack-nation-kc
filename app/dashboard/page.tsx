@@ -39,7 +39,7 @@ export default function DashboardPage() {
         <p>{tr("loadingDashboard")}</p>
       ) : (
         <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
-          <section className="rounded-lg border border-[#d8d0bf] bg-[#fffdf7] p-5">
+          <section className="case-panel case-tab p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-[#172026]">{tr("bestNextStep")}</h2>
             <p className="mt-3 text-base leading-7 text-[#334e68]">
               {reviewDocument
@@ -78,7 +78,7 @@ export default function DashboardPage() {
             </p>
           </section>
 
-          <section className="rounded-lg border border-[#d8d0bf] bg-white p-5">
+          <section className="case-panel-white p-5 sm:p-6">
             <div className="flex items-center gap-3">
               <ClipboardList aria-hidden="true" className="size-5 text-[#6b5b3f]" />
               <h2 className="text-xl font-semibold text-[#172026]">{tr("quickTaskList")}</h2>
@@ -93,7 +93,7 @@ export default function DashboardPage() {
                 <Link
                   key={task.id}
                   href={`/documents#${task.id}`}
-                  className="grid gap-3 py-4 outline-none transition hover:bg-[#fffdf7] focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40 sm:grid-cols-[1fr_auto]"
+                  className="grid gap-3 rounded-md px-3 py-4 outline-none transition hover:bg-[#fffdf7] focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40 sm:grid-cols-[1fr_auto]"
                 >
                   <div>
                     <h3 className="font-semibold text-[#172026]">{requestTitle(task.documentType)}</h3>

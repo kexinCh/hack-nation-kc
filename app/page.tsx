@@ -63,7 +63,7 @@ export default function Home() {
       </PageHeader>
 
       <section className="grid gap-5 lg:grid-cols-[1fr_1fr]">
-        <div className="rounded-lg border border-[#d8d0bf] bg-[#fffdf7] p-6">
+        <div className="case-panel case-tab p-6">
           <div className="flex items-start gap-3">
             <ShieldCheck aria-hidden="true" className="mt-1 size-6 text-[#2f855a]" />
             <div className="w-full">
@@ -83,7 +83,7 @@ export default function Home() {
                     id="home-language"
                     value={language}
                     onChange={(event) => changeLanguage(event.currentTarget.value as PreferredLanguage)}
-                    className="mt-2 h-11 w-full rounded-md border border-[#b8af9d] bg-white px-3 text-base outline-none focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40"
+                    className="form-input mt-2"
                   >
                     {languageOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -100,7 +100,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-[#d8d0bf] bg-white p-6">
+        <div className="case-panel-white p-6">
           <h2 className="text-xl font-semibold text-[#172026]">{t.savedAttempts}</h2>
           {loading ? (
             <p className="mt-3 text-sm text-[#52616b]">{tr("loadingSaved")}</p>
@@ -109,7 +109,7 @@ export default function Home() {
           ) : (
             <div className="mt-4 grid gap-3">
               {sessions.map((session) => (
-                <article key={session.id} className="rounded-md border border-[#e5ddcf] bg-[#fffdf7] p-4">
+                <article key={session.id} className="field-card bg-[#fffdf7] p-4">
                   <h3 className="font-semibold text-[#172026]">
                     {tr("applicationShort", { id: session.id.slice(0, 8) })}
                   </h3>
@@ -120,7 +120,7 @@ export default function Home() {
                       count: session.documents.length,
                     })}
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  <div className="action-row mt-4">
                     <Button type="button" onClick={() => void openSession(session.id, "/dashboard")}>
                       {t.resume}
                     </Button>

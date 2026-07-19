@@ -9,7 +9,7 @@ export function StatusBadge({ status }: { status: string }) {
   return (
     <span
       className={cn(
-        "inline-flex rounded-md border px-2.5 py-1 text-xs font-semibold",
+        "inline-flex min-h-7 items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-bold",
         status === "confirmed" && "border-[#2f855a] bg-[#e6ffed] text-[#22543d]",
         status === "corrected" && "border-[#2f855a] bg-[#e6ffed] text-[#22543d]",
         status === "needs_review" && "border-[#b7791f] bg-[#fff8db] text-[#744210]",
@@ -22,6 +22,16 @@ export function StatusBadge({ status }: { status: string }) {
         status === "added" && "border-[#3182ce] bg-[#ebf8ff] text-[#2c5282]",
       )}
     >
+      <span
+        aria-hidden="true"
+        className={cn(
+          "size-1.5 rounded-full bg-[#6b5b3f]",
+          (status === "confirmed" || status === "corrected") && "bg-[#2f855a]",
+          (status === "needs_review" || status === "extracted" || status === "DO_NOT_HAVE") && "bg-[#b7791f]",
+          (status === "missing" || status === "error") && "bg-[#c53030]",
+          status === "added" && "bg-[#3182ce]",
+        )}
+      />
       {statusLabel(status)}
     </span>
   );

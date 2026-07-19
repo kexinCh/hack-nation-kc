@@ -120,6 +120,11 @@ const english = {
   extractionComplete: "Extraction completed. Review is required before values can be reused.",
   wrongTypeRouted:
     "This appears to be a {actual}, not a {expected}. We added it to the matching document section and kept the original request open.",
+  wrongDocumentTitle: "Wrong document uploaded",
+  wrongDocumentBody:
+    "{filename} appears to be a {actual}, not a {expected}.",
+  wrongDocumentNext:
+    "We added this file to the {actual} section instead. You still need to upload a {expected}.",
   lowConfidenceType:
     "This may be a {actual}, but the classification was uncertain. We kept it in the {expected} section for your review.",
   noSchemaAdded: "Document added to this application bundle. No validated extraction schema was used.",
@@ -417,6 +422,11 @@ const spanish = {
   extractionComplete: "Extracción completada. Se requiere revisión antes de reutilizar valores.",
   wrongTypeRouted:
     "Esto parece ser {actual}, no {expected}. Lo agregamos a la sección de documento correspondiente y dejamos abierta la solicitud original.",
+  wrongDocumentTitle: "Documento equivocado cargado",
+  wrongDocumentBody:
+    "{filename} parece ser {actual}, no {expected}.",
+  wrongDocumentNext:
+    "Agregamos este archivo a la sección {actual}. Aún necesita cargar {expected}.",
   lowConfidenceType:
     "Esto puede ser {actual}, pero la clasificación fue incierta. Lo mantuvimos en la sección {expected} para su revisión.",
   noSchemaAdded: "Documento agregado al paquete. No se usó un esquema validado de extracción.",
@@ -703,6 +713,9 @@ const chinese = {
   taskSkipped: "任务已暂时跳过。",
   extractionComplete: "提取完成。重复使用数值前需要查看。",
   wrongTypeRouted: "这看起来是{actual}，不是{expected}。我们已将它添加到匹配的文件部分，并保留原请求未完成。",
+  wrongDocumentTitle: "上传的文件类型不匹配",
+  wrongDocumentBody: "{filename} 看起来是{actual}，不是{expected}。",
+  wrongDocumentNext: "我们已将此文件添加到{actual}部分。您仍需要上传{expected}。",
   lowConfidenceType: "这可能是{actual}，但分类不确定。我们已将它保留在{expected}部分供您查看。",
   noSchemaAdded: "文件已添加到此申请包。未使用经过验证的提取模式。",
   openAiExtractionFailed: "OpenAI 提取失败。",

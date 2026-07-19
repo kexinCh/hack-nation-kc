@@ -1,7 +1,10 @@
 "use client";
 
+import Link from "next/link";
+
 import { AppShell } from "@/components/app-shell";
 import { PageHeader } from "@/components/page-header";
+import { buttonVariants } from "@/components/ui/button";
 import { housingProgram } from "@/lib/housing/program";
 import { ruleCitations } from "@/lib/housing/rules-2026";
 import { useTranslations } from "@/lib/i18n";
@@ -16,7 +19,7 @@ export default function UnderstandPage() {
       </PageHeader>
 
       <div className="grid gap-5">
-        <section className="rounded-lg border border-[#d8d0bf] bg-[#fffdf7] p-5">
+        <section className="case-panel case-tab p-5 sm:p-6">
           <h2 className="text-xl font-semibold text-[#172026]">{housingProgram.ruleVersion}</h2>
           <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
             <div>
@@ -39,7 +42,7 @@ export default function UnderstandPage() {
         </section>
 
         {ruleCitations.map((citation) => (
-          <article key={citation.id} className="rounded-lg border border-[#d8d0bf] bg-white p-5">
+          <article key={citation.id} className="case-panel-white p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-[#172026]">{citation.title}</h2>
             <p className="mt-3 text-base leading-7 text-[#334e68]">
               {citation.plainLanguageSummary}
@@ -67,6 +70,14 @@ export default function UnderstandPage() {
             </dl>
           </article>
         ))}
+        <div className="action-row">
+          <Link className={buttonVariants({ size: "lg" })} href="/documents">
+            {tr("openDocuments")}
+          </Link>
+          <Link className={buttonVariants({ variant: "outline", size: "lg" })} href="/prepare">
+            {tr("openPrepare")}
+          </Link>
+        </div>
       </div>
     </AppShell>
   );

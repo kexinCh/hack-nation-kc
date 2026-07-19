@@ -202,7 +202,7 @@ function PrepareContent() {
       {loading ? (
         <p>{tr("loadingApplications")}</p>
       ) : !session ? (
-        <section className="rounded-lg border border-[#d8d0bf] bg-white p-5">
+        <section className="case-panel-white p-5 sm:p-6">
           <h2 className="text-xl font-semibold text-[#172026]">{tr("chooseApplication")}</h2>
           <p className="mt-2 text-sm leading-6 text-[#52616b]">{tr("chooseApplicationIntro")}</p>
           {sessions.length === 0 ? (
@@ -212,7 +212,7 @@ function PrepareContent() {
               {sessions.map((item) => {
                 const progress = progressFor(item);
                 return (
-                  <article key={item.id} className="rounded-md border border-[#e5ddcf] bg-[#fffdf7] p-4">
+                  <article key={item.id} className="field-card bg-[#fffdf7] p-4">
                     <h3 className="font-semibold text-[#172026]">
                       {tr("applicationShort", { id: item.id.slice(0, 8) })}
                     </h3>
@@ -233,7 +233,7 @@ function PrepareContent() {
         </section>
       ) : (
         <div className="grid gap-5">
-          <section className="rounded-lg border border-[#d8d0bf] bg-white p-5">
+          <section className="case-panel-white p-5 sm:p-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <h2 className="text-xl font-semibold text-[#172026]">{tr("selectedApplication")}</h2>
@@ -268,7 +268,7 @@ function PrepareContent() {
             </div>
           </section>
 
-          <section className="rounded-lg border border-[#d8d0bf] bg-white p-5">
+          <section className="case-panel-white p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-[#172026]">{tr("frozenScenario")}</h2>
             <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-3">
               <div><dt className="font-semibold text-[#172026]">{tr("metroHmfa")}</dt><dd className="mt-1 text-[#334e68]">{threshold?.hudArea ?? canonicalScenario.label}</dd></div>
@@ -280,7 +280,7 @@ function PrepareContent() {
             </dl>
           </section>
 
-          <section className="rounded-lg border border-[#d8d0bf] bg-white p-5">
+          <section className="case-panel-white p-5 sm:p-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <h2 className="text-xl font-semibold text-[#172026]">{tr("incomeSourcesReview")}</h2>
@@ -292,7 +292,7 @@ function PrepareContent() {
             </div>
             <div className="mt-4 grid gap-3">
               {incomeGroups.map((group, index) => (
-                <article key={group.id} className="rounded-md border border-[#e5ddcf] bg-[#fffdf7] p-4">
+                <article key={group.id} className="field-card bg-[#fffdf7] p-4">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       <h3 className="font-semibold text-[#172026]">
@@ -319,7 +319,7 @@ function PrepareContent() {
                         </div>
                       ) : null}
                     </div>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="action-row">
                       <Button type="button" variant="outline" onClick={() => void renameGroup(group.id)}>{tr("rename")}</Button>
                       <Button type="button" variant="outline" onClick={() => void splitGroup(group.id)} disabled={group.documents.length < 2}>{tr("split")}</Button>
                       <Button type="button" variant="ghost" onClick={() => void markInactive(group.id)}>{tr("markInactive")}</Button>
@@ -330,7 +330,7 @@ function PrepareContent() {
             </div>
           </section>
 
-          <section className="rounded-lg border border-[#d8d0bf] bg-[#fffdf7] p-5">
+          <section className="case-panel case-tab p-5 sm:p-6">
             <div className="flex items-start gap-3">
               <Calculator aria-hidden="true" className="mt-1 size-6 text-[#6b5b3f]" />
               <div>
@@ -349,7 +349,7 @@ function PrepareContent() {
           </section>
 
           {unresolved.length > 0 ? (
-            <section className="rounded-lg border border-[#b7791f] bg-[#fff8db] p-5">
+            <section className="case-panel border-[#b7791f] bg-[#fff8db] p-5">
               <h2 className="text-xl font-semibold text-[#172026]">{tr("unresolvedInformation")}</h2>
               <ul className="mt-3 grid gap-2 text-sm text-[#744210]">
                 {unresolved.map((task) => (
@@ -369,7 +369,7 @@ function PrepareContent() {
           ) : null}
 
           {calculation ? (
-            <section className="rounded-lg border border-[#d8d0bf] bg-white p-5">
+            <section className="case-panel-white p-5 sm:p-6">
               <h2 className="text-xl font-semibold text-[#172026]">{tr("result", { amount: currency.format(calculation.annualizedIncome) })}</h2>
               <p className="mt-2 text-base font-semibold text-[#172026]">{tr("frozenThresholdComparison", { comparison: calculation.thresholdComparison })}</p>
               <p className="mt-1 text-sm text-[#52616b]">{tr("reviewHandoffStatus", { status: calculation.readinessStatus })}</p>
@@ -389,7 +389,7 @@ function PrepareContent() {
                     {annualizedLines.length > 0 ? (
                       <ul className="grid gap-2">
                         {annualizedLines.map((line) => (
-                          <li key={`${line.documentId}-${line.amountLabel}-${line.frequency}`} className="rounded-md border border-[#e5ddcf] bg-[#fffdf7] p-3 text-[#334e68]">
+                          <li key={`${line.documentId}-${line.amountLabel}-${line.frequency}`} className="evidence-box text-[#334e68]">
                             <span className="font-semibold">{line.sourceDocumentId}</span>: {line.amountLabel} {currency.format(line.amount)} x {line.multiplier} ({line.frequency}) = {currency.format(line.annualizedAmount)}
                           </li>
                         ))}
@@ -406,7 +406,7 @@ function PrepareContent() {
                     {calculation.inputs.length > 0 ? (
                       <ul className="grid gap-2">
                         {calculation.inputs.map((input, index) => (
-                          <li key={`${input.documentId}-${input.fieldKey}-${index}`} className="rounded-md border border-[#e5ddcf] bg-[#fffdf7] p-3 text-[#334e68]">
+                          <li key={`${input.documentId}-${input.fieldKey}-${index}`} className="evidence-box text-[#334e68]">
                             {input.label}: {String(input.value)}
                           </li>
                         ))}

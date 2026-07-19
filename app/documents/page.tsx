@@ -326,7 +326,7 @@ export default function DocumentsPage() {
       ) : (
         <div className="grid gap-5">
           {requirementsResolved ? (
-            <section className="rounded-lg border-2 border-[#2f855a] bg-[#e6ffed] p-5">
+            <section className="case-panel border-2 border-[#2f855a] bg-[#e6ffed] p-5">
               <h2 className="text-xl font-semibold text-[#172026]">{tr("continuePrepare")}</h2>
               <p className="mt-2 text-sm leading-6 text-[#22543d]">{tr("requirementsResolved")}</p>
               <div className="mt-4">
@@ -337,7 +337,7 @@ export default function DocumentsPage() {
             </section>
           ) : null}
           {requestedTasks.length === 0 ? (
-            <section className="rounded-lg border border-[#d8d0bf] bg-white p-5">
+            <section className="case-panel-white p-5">
               <h2 className="text-xl font-semibold text-[#172026]">
                 {session.setup.incomeSources.includes("no_current_income")
                   ? tr("noCurrentIncomeGuidanceTitle")
@@ -358,7 +358,7 @@ export default function DocumentsPage() {
             const slots = slotsFor(task);
 
             return (
-              <section id={task.id} key={task.id} className="scroll-mt-24 rounded-lg border border-[#d8d0bf] bg-[#fffdf7] p-5" aria-labelledby={`${task.id}-title`}>
+              <section id={task.id} key={task.id} className="case-panel case-tab scroll-mt-24 p-5 sm:p-6" aria-labelledby={`${task.id}-title`}>
                 <div className="flex flex-wrap items-center gap-3">
                   <FileText aria-hidden="true" className="size-5 text-[#6b5b3f]" />
                   <h2 id={`${task.id}-title`} className="text-xl font-semibold text-[#172026]">
@@ -380,7 +380,7 @@ export default function DocumentsPage() {
                   const validFileSelected = Boolean(selected?.file && !slot.error);
                   const busy = slot.status === "uploading" || slot.status === "extracting";
                   return (
-                    <div key={slot.slotId} className="mt-4 grid gap-3 rounded-md border border-[#e5ddcf] bg-white p-4">
+                    <div key={slot.slotId} data-state={slot.status} className="upload-slot mt-4 grid gap-4 p-4 sm:p-5">
                       <label htmlFor={`${task.id}-${slot.slotId}-file`} className="text-sm font-semibold text-[#172026]">
                         {tr("choosePdf", { type: documentTypeLabel(task.documentType) })} {slotIndex + 1}
                       </label>
@@ -390,20 +390,22 @@ export default function DocumentsPage() {
                         type="file"
                         accept="application/pdf,.pdf"
                         onChange={(event) => void selectFile(task, slot, event.currentTarget.files?.[0])}
-                        className="block w-full rounded-md border border-[#b8af9d] bg-[#fffdf7] p-3 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-[#183b56] file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40"
+                        className="file-input"
                       />
-                      <p className="text-sm text-[#52616b]">
-                        {tr("selectedFilename", { name: selected?.file?.name ?? slot.filename ?? tr("noFileSelected") })}
-                      </p>
-                      <p className="text-sm font-semibold text-[#334e68]">
+                      <div className="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-center">
+                        <p className="min-w-0 break-words text-sm text-[#52616b]">
+                          {tr("selectedFilename", { name: selected?.file?.name ?? slot.filename ?? tr("noFileSelected") })}
+                        </p>
+                        <p data-state={slot.status} className="status-line">
                         {tr("uploadSlotStatus", { status: statusLabel(slot.status) })}
-                      </p>
+                        </p>
+                      </div>
                       {slot.error ? (
-                        <p role="alert" className="rounded-md border border-[#c53030] bg-[#fff5f5] p-3 text-sm text-[#742a2a]">
+                        <p role="alert" className="rounded-md border border-[#c53030] bg-[#fff5f5] p-3 text-sm leading-6 text-[#742a2a]">
                           {slot.error}
                         </p>
                       ) : null}
-                      <div className="flex flex-wrap gap-2">
+                      <div className="action-row">
                         <Button
                           type="button"
                           onClick={() => void submitFile(task, slot)}
@@ -439,7 +441,7 @@ export default function DocumentsPage() {
                 {documents.length > 0 ? (
                   <div className="mt-4 grid gap-3">
                     {documents.map((document, index) => (
-                      <article key={document.id} className="grid gap-3 rounded-md border border-[#e5ddcf] bg-white p-4 sm:grid-cols-[1fr_auto]">
+                      <article key={document.id} className="field-card grid gap-3 p-4 sm:grid-cols-[1fr_auto]">
                         <div>
                           <h3 className="font-semibold text-[#172026]">
                             {documentTypeLabel(document.type)} {index + 1}: {document.fileName}
@@ -450,7 +452,7 @@ export default function DocumentsPage() {
                               : tr("reviewRequired")}
                           </p>
                         </div>
-                        <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+                        <div className="action-row sm:justify-end">
                           <StatusBadge status={document.status} />
                           {document.status === "needs_review" || document.status === "confirmed" ? (
                             <Link className={buttonVariants({ size: "lg" })} href={`/documents/${document.id}/review`}>
@@ -498,39 +500,27 @@ export default function DocumentsPage() {
             }
           }}
         >
-          <div className="w-full max-w-md rounded-lg border border-[#d8d0bf] bg-white p-6 shadow-xl">
+          <div className="case-panel-white w-full max-w-md p-6 shadow-xl">
             <h2
               id="document-mismatch-title"
               className="text-xl font-semibold text-[#172026]"
             >
-              Wrong document uploaded
+              {tr("wrongDocumentTitle")}
             </h2>
 
             <p className="mt-3 text-sm leading-6 text-[#52616b]">
-              <span className="font-semibold text-[#172026]">
-                {documentMismatch.filename}
-              </span>{" "}
-              appears to be a{" "}
-              <span className="font-semibold text-[#172026]">
-                {documentTypeLabel(documentMismatch.actualType)}
-              </span>
-              , not a{" "}
-              <span className="font-semibold text-[#172026]">
-                {documentTypeLabel(documentMismatch.expectedType)}
-              </span>
-              .
+              {tr("wrongDocumentBody", {
+                filename: documentMismatch.filename,
+                actual: documentTypeLabel(documentMismatch.actualType),
+                expected: documentTypeLabel(documentMismatch.expectedType),
+              })}
             </p>
 
             <p className="mt-3 text-sm leading-6 text-[#52616b]">
-              We added this file to the{" "}
-              <span className="font-semibold text-[#172026]">
-                {documentTypeLabel(documentMismatch.actualType)}
-              </span>{" "}
-              section instead. You still need to upload a{" "}
-              <span className="font-semibold text-[#172026]">
-                {documentTypeLabel(documentMismatch.expectedType)}
-              </span>
-              .
+              {tr("wrongDocumentNext", {
+                actual: documentTypeLabel(documentMismatch.actualType),
+                expected: documentTypeLabel(documentMismatch.expectedType),
+              })}
             </p>
 
             <div className="mt-6 flex justify-end">

@@ -160,7 +160,7 @@ function SetupContent() {
       {loading && !creatingNew ? (
         <p>{tr("loadingSetup")}</p>
       ) : (
-        <form ref={formRef} className="grid gap-5 rounded-lg border border-[#d8d0bf] bg-[#fffdf7] p-5">
+        <form ref={formRef} className="case-panel case-tab grid gap-5 p-5 sm:p-6">
           <fieldset data-field="program">
             <legend className="text-sm font-semibold text-[#172026]">{tr("metroProgram")}</legend>
             <div className="mt-3 grid gap-3">
@@ -194,7 +194,7 @@ function SetupContent() {
               onChange={(event) =>
                 void saveDraft({ ...draft, householdSize: Number(event.currentTarget.value) })
               }
-              className="mt-2 h-11 w-full max-w-xs rounded-md border border-[#b8af9d] bg-white px-3 text-base outline-none focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40"
+              className="form-input mt-2 max-w-xs"
             />
             {errors.householdSize ? <p className="mt-2 text-sm text-[#742a2a]" role="alert">{errors.householdSize}</p> : null}
           </div>
@@ -235,7 +235,7 @@ function SetupContent() {
                 onChange={(event) =>
                   void saveDraft({ ...draft, giftSupportDescription: event.currentTarget.value })
                 }
-                className="mt-2 h-11 w-full rounded-md border border-[#b8af9d] bg-white px-3 text-base outline-none focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40"
+                  className="form-input mt-2"
               />
               {errors.giftSupportDescription ? <p className="mt-2 text-sm text-[#742a2a]" role="alert">{errors.giftSupportDescription}</p> : null}
             </div>
@@ -252,7 +252,7 @@ function SetupContent() {
                 onChange={(event) =>
                   void saveDraft({ ...draft, otherIncomeDescription: event.currentTarget.value })
                 }
-                className="mt-2 h-11 w-full rounded-md border border-[#b8af9d] bg-white px-3 text-base outline-none focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40"
+                  className="form-input mt-2"
               />
               {errors.otherIncomeDescription ? <p className="mt-2 text-sm text-[#742a2a]" role="alert">{errors.otherIncomeDescription}</p> : null}
             </div>
@@ -273,11 +273,11 @@ function SetupContent() {
               type="date"
               value={draft.deadline ?? ""}
               onChange={(event) => void saveDraft({ ...draft, deadline: event.currentTarget.value })}
-              className="mt-2 h-11 w-full max-w-xs rounded-md border border-[#b8af9d] bg-white px-3 text-base outline-none focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40"
+              className="form-input mt-2 max-w-xs"
             />
           </div>
 
-          <div className="flex flex-col gap-3 border-t border-[#d8d0bf] pt-5 sm:flex-row sm:items-center">
+          <div className="action-row border-t border-[#d8d0bf] pt-5 sm:items-center">
             <Button type="button" size="lg" onClick={() => void continueToDashboard()} disabled={saving}>
               {tr("continueDashboard")}
             </Button>

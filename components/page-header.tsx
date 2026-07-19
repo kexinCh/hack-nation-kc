@@ -10,8 +10,8 @@ export function PageHeader({
   children: ReactNode;
 }) {
   return (
-    <div className="mb-6 border-b border-[#d8d0bf] pb-5">
-      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#6b5b3f]">
+    <div className="mb-6 rounded-xl border border-[#d8d0bf] bg-[#fffdf7]/85 p-5 shadow-sm sm:p-6">
+      <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#6b5b3f]">
         {eyebrow}
       </p>
       <h1 className="max-w-3xl text-3xl font-semibold leading-tight text-[#172026] sm:text-4xl">

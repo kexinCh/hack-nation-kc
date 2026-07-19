@@ -98,7 +98,7 @@ export default function ReviewDocumentPage() {
         </EmptyState>
       ) : (
         <div className="grid gap-5">
-          <section className="rounded-lg border border-[#d8d0bf] bg-[#fffdf7] p-5">
+          <section className="case-panel case-tab p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-[#172026]">{tr("documentSource")}</h2>
             <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-3">
               <div>
@@ -130,7 +130,7 @@ export default function ReviewDocumentPage() {
             </dl>
           </section>
 
-          <section className="rounded-lg border border-[#d8d0bf] bg-white p-5">
+          <section className="case-panel-white p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-[#172026]">{tr("documentPdf")}</h2>
             <p className="mt-2 text-sm leading-6 text-[#52616b]">
               {documentRecord.isUploaded
@@ -141,7 +141,7 @@ export default function ReviewDocumentPage() {
               <iframe
                 title={`${documentRecord.title} PDF`}
                 src={pdfUrl}
-                className="mt-4 h-[520px] w-full rounded-md border border-[#d8d0bf] bg-[#f8f6f0]"
+                className="mt-4 h-[360px] w-full rounded-md border border-[#d8d0bf] bg-[#f8f6f0] sm:h-[520px]"
               />
             ) : (
               <p role="alert" className="mt-4 rounded-md border border-[#b7791f] bg-[#fff8db] p-3 text-sm text-[#744210]">
@@ -156,10 +156,7 @@ export default function ReviewDocumentPage() {
               const draft = draftValues[confirmation.id] ?? displayValue(confirmation.originalValue);
 
               return (
-                <article
-                  key={confirmation.id}
-                  className="rounded-lg border border-[#d8d0bf] bg-white p-5"
-                >
+                <article key={confirmation.id} className="field-card p-5 sm:p-6">
                   <div className="grid gap-5 lg:grid-cols-[1fr_0.9fr]">
                     <div>
                       <div className="flex flex-wrap items-center gap-3">
@@ -200,7 +197,7 @@ export default function ReviewDocumentPage() {
                         ) : null}
                         <div>
                           <dt className="font-semibold text-[#172026]">{tr("sourceSnippet")}</dt>
-                          <dd className="mt-1 rounded-md border border-[#e5ddcf] bg-[#fffdf7] p-3 text-[#334e68]">
+                          <dd className="evidence-box mt-1 text-[#334e68]">
                             {confirmation.sourceSnippet ?? sampleField?.sourceSnippet ?? tr("noSnippet")}
                           </dd>
                         </div>
@@ -224,9 +221,9 @@ export default function ReviewDocumentPage() {
                             [confirmation.id]: event.currentTarget.value,
                           }))
                         }
-                        className="mt-2 h-11 w-full rounded-md border border-[#b8af9d] bg-white px-3 text-base outline-none focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40"
+                        className="form-input mt-2"
                       />
-                      <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                      <div className="action-row mt-4">
                         <Button
                           type="button"
                           onClick={() =>
@@ -257,7 +254,7 @@ export default function ReviewDocumentPage() {
             })}
           </section>
 
-          <section className="rounded-lg border border-[#d8d0bf] bg-white p-5">
+          <section className="case-panel-white p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-[#172026]">{tr("correctedValue")}</h2>
             <p className="mt-2 text-sm leading-6 text-[#52616b]">
               {tr("noConfirmedFieldsBody")}
@@ -268,7 +265,7 @@ export default function ReviewDocumentPage() {
                 <input
                   value={manualLabel}
                   onChange={(event) => setManualLabel(event.currentTarget.value)}
-                  className="mt-2 h-11 w-full rounded-md border border-[#b8af9d] bg-white px-3 text-base outline-none focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40"
+                  className="form-input mt-2"
                 />
               </label>
               <label className="block text-sm font-semibold text-[#172026]">
@@ -276,7 +273,7 @@ export default function ReviewDocumentPage() {
                 <input
                   value={manualValue}
                   onChange={(event) => setManualValue(event.currentTarget.value)}
-                  className="mt-2 h-11 w-full rounded-md border border-[#b8af9d] bg-white px-3 text-base outline-none focus-visible:ring-3 focus-visible:ring-[#2f80ed]/40"
+                  className="form-input mt-2"
                 />
               </label>
               <Button type="button" onClick={() => void addManualField()} disabled={!manualLabel.trim() || !manualValue.trim()}>
@@ -285,7 +282,7 @@ export default function ReviewDocumentPage() {
             </div>
           </section>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="action-row">
             <Link className={buttonVariants({ size: "lg" })} href="/documents">
               {tr("backDocuments")}
             </Link>
